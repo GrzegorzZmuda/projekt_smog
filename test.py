@@ -7,16 +7,36 @@ Created on Thu May  2 00:44:46 2019
 https://docs.python-guide.org/scenarios/scrape/
 """
 
-from lxml import html
 import requests
+from bs4 import BeautifulSoup
 
-page = requests.get('http://econpy.pythonanywhere.com/ex/001.html')
-tree = html.fromstring(page.content)
+page = requests.get('https://pogoda.interia.pl/archiwum-pogody-01-01-2019,cId,4970')
 
-#This will create a list of buyers:
-buyers = tree.xpath('//div[@title="buyer-name"]/text()')
-#This will create a list of prices
-prices = tree.xpath('//span[@class="item-price"]/text()')
+soup=BeautifulSoup(page.text,'html.parser')
+temp = soup.find_all('span',attrs={'class': 'forecast-temp'})
+hour=soup.find_all('span',attrs={'class': 'hour'})
+minutes=soup.find_all('span',attrs={'class': 'minutes'})
 
-print ('Buyers: ', buyers)
-print ('Prices: ', prices)
+w, h = 3,24;
+res = [[0 for x in range(w)] for y in range(h)] 
+
+i=0
+for b in temp:
+    res[i][2]=b.text
+    i=i+1
+
+    
+i=0
+for b in hour:
+    res[i][0]=b.text
+    i=i+1
+    
+i=0
+for b in minutes:
+    res[i][1]=b.text
+    i=i+1
+
+print(type(temp))
+print(res)
+
+
