@@ -19,17 +19,16 @@ y = json.loads(response.content)
 
 print(y)
 
-"""
+
 #prints data
 print(y["coord"])
 print(y["weather"])
 print(y["main"])
 print(y["wind"])
 print(y["clouds"])
-#print(y["dt"])
-#print(y["sys"])
-#print(y["id"])
-#print(y["cod"])
-#print(y["base"])
+print(y["dt"])
+print(y["sys"])
+print(y["id"])
+print(y["cod"])
+print(y["base"])
 
-"""
