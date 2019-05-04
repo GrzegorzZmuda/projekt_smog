@@ -85,7 +85,7 @@ class Map:
 
     #bazowa emisja (mieszkania)
     def emmision(self, amount=0.5):
-        if(15>self.hour>20):
+        if(18>self.hour>22):
             for i in range(self.yrange):
                 for j in range(self.xrange):
                     self.array[i * self.xrange + j].setchange(amount)
