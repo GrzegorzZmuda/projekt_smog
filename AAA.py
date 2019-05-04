@@ -13,9 +13,13 @@ opady, prawdopodobnie
 godzina
 ???cisnienie/wilgotnosc????? idk
 
+B:PolutionAPI.py pozwala na pobranie średniej temperatury, wilgotności, ciśnienia i poziomów PM z ostatniej godziny
+b: Tutaj jest mapa czujników: https://airly.eu/map/pl/#50.07297,19.91483,i2935
+b: Api zwraca przedział czasowy pomiarów, jest możliwość pobrania histori i prognozy
+
 nie wiem jak z opadami ale na pewno brakuje godziny
 
-//dla warunków bierzących dt Time of data calculation, unix, UTC
+//dla warunków bieżących dt Time of data calculation, unix, UTC
 //dla prognozy list.dt_txt Data/time of calculation, UTC
 
 można pobrać ze stron dane temp i wiatru zależnie od godziny
@@ -34,7 +38,11 @@ przewidywanie smogu -> branie najbardziej podobnych pomiarów
  
  Czy patrzymy wgl tylko na pył zawieszony czy na jakies bardziej ambitne zwiazki siarki itd też??
  
+ B: Stacje pomiarowe mierzą tylko pył zawieszony, chyba że znajdziecie jakiegoś innego dostawcę danych
+ 
  miejscami niebędącymi punktami pomiaru możemy się martwić później
+ 
+ B: Api ma funkcję obliczania zanieczyszczeń w dowolnym miejscu, Wydaje mi się że liczy średnią z najbliższych sensorów
 
 """
 
