@@ -15,10 +15,15 @@ godzina
 
 nie wiem jak z opadami ale na pewno brakuje godziny
 
+//dla warunków bierzących dt Time of data calculation, unix, UTC
+//dla prognozy list.dt_txt Data/time of calculation, UTC
+
 można pobrać ze stron dane temp i wiatru zależnie od godziny
  (będą takie same dla całego miasta raczej)
  i potem dla różnych punktów pomiaru smogu sprawdzić zależności
- temp mamy w komplecie z punktem pomiarowym więc tyle można prosto 
+ temp mamy w komplecie z punktem pomiarowym więc tyle można prosto
+
+
 
 przewidywanie smogu -> branie najbardziej podobnych pomiarów
  dla danego punktu i wyliczanie średniej?? 

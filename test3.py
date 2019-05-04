@@ -20,6 +20,6 @@ y = json.loads(response.content)
 for i in range(96):
     z = y["list"][i]
     print(z["wind"])
-
+    print(z["dt_txt"])
 
 #prints data
