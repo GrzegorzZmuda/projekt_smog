@@ -47,7 +47,7 @@ class Map:
 
 
 a=Map(4,4)
-for i in range(4):
+for i in range(5):
     a.disp()
     a.spread()
     print()
