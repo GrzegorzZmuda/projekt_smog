@@ -22,36 +22,42 @@ class Map:
 
             print()
     #symulacja rozprzestrzeniania się smogu(beZ wiatru)
-    def spread(self):
+    def spread(self,scale):
         #kalkulowanie zmian
         for i in range(self.yrange):
             for j in range(self.xrange):
                 temp1=i*self.xrange+j
-                temp3=0
+
                 x=self.array[temp1].disp()
+                temp2 = x * scale
                 if(j-1>-1):
-                    self.array[temp1-1].setchange(x*0.1)
-                temp3=temp3- x * 0.1
+                    self.array[temp1-1].setchange(temp2)
+
                 if (j + 1 < self.xrange):
-                    self.array[temp1 + 1].setchange(x * 0.1)
-                temp3 = temp3 - x * 0.1
+                    self.array[temp1 + 1].setchange(temp2)
+
                 if (i - 1 > -1):
-                    self.array[temp1 - self.xrange].setchange(x * 0.1)
-                temp3 = temp3 - x * 0.1
+                    self.array[temp1 - self.xrange].setchange(temp2)
+
                 if (i + 1 < self.yrange):
-                    self.array[temp1 + self.xrange].setchange(x * 0.1)
-                temp3 = temp3 - x * 0.1
-                self.array[temp1].setchange(temp3)
-        #update kafelek
+                    self.array[temp1 + self.xrange].setchange(temp2)
+
+                self.array[temp1].setchange(0 - temp2*4)
+    #update kafelek
+    def update(self):
         for i in range(self.yrange):
             for j in range(self.xrange):
                 self.array[i*self.xrange+j].update()
 
+    def cycle(self,scale):
+        self.spread(scale)
+        self.update()
+
+a=Map(3,3)
+
+for i in range(50):
+    #a.disp()
+    a.cycle(0.1)
 
 
-a=Map(4,4)
-for i in range(5):
-    a.disp()
-    a.spread()
-    print()
 a.disp()
