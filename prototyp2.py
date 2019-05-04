@@ -98,6 +98,10 @@ class Map:
                 for j in range(self.xrange):
                     self.array[i * self.xrange + j].setchange(amount)
 
+
+
+
+
 #symulacja
 a=Map(3,3)
 a.simulate()
