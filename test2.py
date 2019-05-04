@@ -20,7 +20,7 @@ y = json.loads(response.content)
 print(y)
 
 
-#prints data
+#prints datas
 print(y["coord"])
 print(y["weather"])
 print(y["main"])
