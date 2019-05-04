@@ -1,8 +1,10 @@
 import random
 import prototyp1
 
-class Map:
 
+#mapa z wszystkimi kafelkami
+class Map:
+    #konstruktor
     def __init__(self, x, y):
         self.array=[]
         self.xrange=x
@@ -11,7 +13,7 @@ class Map:
             for j in range(y):
                 self.array.append(prototyp1.Blok(i,j,random.randrange(1,10)))
 
-
+    #wyświetlanie (tymczasowo/ później trzeba bedzie zrobić wersje graficzną)
     def disp(self):
         for i in range(self.yrange):
             for j in range(self.xrange):
@@ -19,8 +21,9 @@ class Map:
                 print(format(temp, '02f'), end=' ')
 
             print()
-
+    #symulacja rozprzestrzeniania się smogu(beZ wiatru)
     def spread(self):
+        #kalkulowanie zmian
         for i in range(self.yrange):
             for j in range(self.xrange):
                 temp1=i*self.xrange+j
@@ -39,7 +42,7 @@ class Map:
                     self.array[temp1 + self.xrange].setchange(x * 0.1)
                 temp3 = temp3 - x * 0.1
                 self.array[temp1].setchange(temp3)
-
+        #update kafelek
         for i in range(self.yrange):
             for j in range(self.xrange):
                 self.array[i*self.xrange+j].update()
