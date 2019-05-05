@@ -43,7 +43,7 @@ grid=np.zeros((gridsize,gridsize))
 
 
 
-for abdas in range(10):
+for abdas in range(100):
     gridn=np.zeros((gridsize,gridsize))
 
     
