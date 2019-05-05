@@ -1,31 +1,70 @@
 import random
 import prototyp1
-import matplotlib.pyplot as pl
+import matplotlib.pyplot as plt
+from chart import chart
 
 #mapa z wszystkimi kafelkami
+
+
+
 class Map:
 
     #konstruktor
     def __init__(self, x, y):
         self.mid = []
-
         self.array=[]
         self.xrange=x
         self.yrange=y
         for i in range(x):
             for j in range(y):
-                self.array.append(prototyp1.Blok(i,j,random.randrange(4,7)))
+                self.array.append(prototyp1.Blok(i,j,random.randrange(1,10)/10))
 
-    #wyświetlanie (tymczasowo/ później trzeba bedzie zrobić wersje graficzną)
+    #wyświetlanie
     def disp(self):
-
+        A=[]
         for i in range(self.yrange):
             for j in range(self.xrange):
                 temp = self.array[i*self.xrange+j].disp()
-                print(format(temp, '02f'), end=' ')
+                A.append(temp)
+                #print(format(temp, '02f'), end=' ')
 
             print()
         self.mid.append(self.array[i * self.xrange + j].disp())
+        chart(A, self.xrange, self.yrange)
+
+
+
+
+    #efekt wiatru
+    def wind(self,speed,direction,scale=0.1):
+
+
+
+
+
+        for i in range(self.yrange):
+            for j in range(self.xrange):
+                temp1=i*self.xrange+j
+
+                x=self.array[temp1].disp()
+                temp2 = x * scale
+                if(j-1>-1 and direction==1):
+                    self.array[temp1-1].setchange(temp2*speed*scale)
+
+                if (j + 1 < self.xrange and direction==2):
+                    self.array[temp1 + 1].setchange(temp2*speed*scale)
+
+
+                if (i - 1 > -1 and direction==3):
+                    self.array[temp1 - self.xrange].setchange(temp2*speed*scale)
+
+                if (i + 1 < self.yrange and direction==4):
+                    self.array[temp1 + self.xrange].setchange(temp2*speed*scale)
+
+                self.array[temp1].setchange(-temp2*speed*scale)
+
+
+
 
     #symulacja rozprzestrzeniania się smogu(beZ wiatru)
     def spread(self,scale):
@@ -61,6 +100,7 @@ class Map:
         self.spread(spreadscale)
         self.car()
         self.emmision()
+        self.wind(14,2)
         self.update()
         self.disp()
         print()
@@ -68,7 +108,7 @@ class Map:
     #spreadscale - prędkość rozprowadzanie sie zanieczyszczeń
     #length- ilość cykli
     #starthour - godzina rozpoczecia
-    def simulate(self,spreadscale=0.1,length=96,starthour=0):
+    def simulate(self,spreadscale=0.1,length=15,starthour=0):
         self.hour=starthour
         self.midyaxis=[]
         for i in range(length):
@@ -78,8 +118,8 @@ class Map:
             if(self.hour>24):
                 self.hour=0
 
-        pl.plot(self.midyaxis,self.mid)
-        pl.show()
+        plt.plot(self.midyaxis,self.mid)
+        plt.show()
 
 
 
@@ -103,5 +143,5 @@ class Map:
 
 
 #symulacja
-a=Map(3,3)
+a=Map(50,50)
 a.simulate()

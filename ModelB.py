@@ -25,6 +25,7 @@ import numpy as np
 #import pygame
 
 #pygame.init()
+from chart import chart
 
 gridsize=50
 
@@ -60,12 +61,7 @@ for abdas in range(10):
     for x in range(1,gridsize-1):
         for y in range(1,gridsize-1): # sorces + remaining pollution from previous cycle (spreaded pollution)
             gridn[x-1][y]=gridn[x][y]+sd*(dff*(grid[x-1][y]+grid[x+1][y]+grid[x][y-1]+grid[x][y+1])+(1-dff)*grid[x][y])
-    
 
-
-        
-        
-        
-        
+    chart(grid, gridsize, gridsize)
     grid=gridn
 

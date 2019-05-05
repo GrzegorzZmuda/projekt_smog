@@ -2,9 +2,8 @@
 
 class Blok:
     #konstruktor
-    def __init__(self, x, y, p=0):
-        self.xcord = x
-        self.ycord = y      #koordynaty kafelki
+    def __init__(self, x, y, p=0,type=1):
+        self.type = type #typ kafelki
         self.pollution = p  #zanieczyszczenie
         self.pollutionchange=0  #zmiana zanieczyszczenia w nastepnej jednostce czasu
     #zwraca zawartość zanieczyszczenia na kafelce
