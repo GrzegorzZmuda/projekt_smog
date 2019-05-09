@@ -1,8 +1,8 @@
-kody stacji krakowskich zaczynaj¹ siê od MpKrak
-
 arkusze z danymi zawieraj¹ dane dla podanego wskaŸnika z ca³ego roku z ca³ej Polski z odstêpem podanym w nazwie (godzina)
 w pliku metadane mo¿na znaleŸæ dok³adne po³o¿enie stacji
 (stacje oznaczone takim samym kodem co w danych pomiarowych)
 
 ród³o: http://powietrze.gios.gov.pl/pjp/archives
-Mo¿na pobraæ te¿ dla innych rodzajów zanieczyszczeñ i dal lat 2000-2017, ale jeden rok powinien wystarczyæ
+Mo¿na pobraæ te¿ dla innych rodzajów zanieczyszczeñ i dla lat 2000-2017, ale jeden rok powinien wystarczyæ
+2018 trzebaby pobraæ rêcznie
+kody stacji krakowskich zaczynaj¹ siê od MpKrak
