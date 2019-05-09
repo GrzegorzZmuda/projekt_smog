@@ -14,11 +14,11 @@ import matplotlib.pyplot as plt
 s = xlrd.open_workbook('dane/MetadaneKrk.xls')
 stacje = s.sheet_by_index(0)
 
-p = xlrd.open_workbook('dane/2017_PM10_1g.xlsx')
+p = xlrd.open_workbook('dane/2017_PM10_1g.xls')
 pm10 = p.sheet_by_index(0)
 pc=pm10.ncols
 
-w, h = 4, 12;
+w, h = 4, 8;
 res = [[0 for x in range(w)] for y in range(h)] #w tym jest zapisane id i koordynaty
 
 for i in range (12):
