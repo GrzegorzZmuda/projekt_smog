@@ -110,6 +110,7 @@ class Map:
     #starthour - godzina rozpoczecia
     def simulate(self,spreadscale=0.01,length=96,starthour=0):
         self.hour=starthour
+
         self.midyaxis=[]
         for i in range(length):
             self.midyaxis.append(i+1)
