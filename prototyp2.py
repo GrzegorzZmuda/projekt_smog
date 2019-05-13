@@ -36,7 +36,7 @@ class Map:
 
 
     #efekt wiatru
-    def wind(self,speed,direction,scale=0.1):
+    def wind(self,speed,direction,scale=0.15):
 
 
 
@@ -108,7 +108,7 @@ class Map:
     #spreadscale - prędkość rozprowadzanie sie zanieczyszczeń
     #length- ilość cykli
     #starthour - godzina rozpoczecia
-    def simulate(self,spreadscale=0.1,length=15,starthour=0):
+    def simulate(self,spreadscale=0.01,length=96,starthour=0):
         self.hour=starthour
         self.midyaxis=[]
         for i in range(length):
@@ -132,7 +132,7 @@ class Map:
 
 
     #bazowa emisja (samochody)
-    def car(self, amount=0.25):
+    def car(self, amount=0.1):
         if ((15 < self.hour < 18) or (6 < self.hour < 9)):
             for i in range(self.yrange):
                 for j in range(self.xrange):
