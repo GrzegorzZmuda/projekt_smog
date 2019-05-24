@@ -10,31 +10,30 @@ pip install -U pygame --user
 restart spyder
 
 
-Model teoretycznie działa ale trzeba go ładnie wyswietlić, zrobię to jutro
-
 
 
 """
 
 
 
-
+import MDisplay as MD
 
 import time
 import numpy as np
 import os
 
-import pygame
-from pygame import surfarray
-from pygame.locals import *
-from numpy import int32
-pygame.init()
+#import pygame
+#from pygame import surfarray
+#from pygame.locals import *
+#from numpy import int32
+#pygame.init()
 from chart import chart
 Max = 2000
 Xmax=Max/6
 gridsize=50
 scale=8
 
+MD.init(gridsize,gridsize)
 
 dff=0.20 #ile zanieczyszczeń przechodzi na sąsiadującą kratkę
 sd=0.999  #ile zanieczyszczeń pozostaje w cyklu
@@ -60,10 +59,10 @@ def convert1(temp):
 
 
 def convert(temp):
-    temp=temp/Xmax
+    temp=(temp/Xmax)
     c=1
-    x=1-abs(temp % 2 - 1)
-    #"""
+    x=1-abs((temp) % 2 - 1)
+    """
     if(temp<1):
         return (255,x*255,0)
     elif(temp<2):
@@ -78,24 +77,42 @@ def convert(temp):
         return (255,0,x*255)
     else:
         return(255,255,255)
+        
+        
+    if(temp<1):
+        return (255,0,x*255) #red - purple
+    elif(temp<2):
+        return (x*255,0,255) #purple - blue
+    elif(temp<3):
+        return (0,x*255,255) #Blue - lb
+    elif(temp<4):
+        return (0,255,x*255) #lb - Green
+    elif(temp<5):
+        return (x*255,255,0) #green - yellow
+    elif(temp<6):
+        return (255,x*255,0) #yellow - red
+    else:
+        return(255,255,255)
+        
+        
     """
     
     if(temp<1):
-        return (255,0,x*255)
+        return (0,x*255,255) #Blue - lb
     elif(temp<2):
-        return (x*255,0,255)
+        return (0,255,x*255) #lb - Green
     elif(temp<3):
-        return (0,x*255,255)
+        return (x*255,255,0) #green - yellow
     elif(temp<4):
-        return (0,255,x*255)
+        return (255,x*255,0) #yellow - red
     elif(temp<5):
-        return (x*255,255,0)
+        return (255,0,x*255) #red - purple
     elif(temp<6):
-        return (255,x*255,0)
+        return (255,x*255,255) # purple - white
     else:
         return(255,255,255)
 
-    """
+    #"""
 
 def sinit(data) :
     #return 0
@@ -132,7 +149,7 @@ grid=np.zeros((gridsize,gridsize))
 screen=sinit(grid);
 
 
-for abdas in range(400):
+for abdas in range(100):
     gridn=np.zeros((gridsize,gridsize))
 
     
@@ -153,7 +170,10 @@ for abdas in range(400):
 
     #chart(grid, gridsize, gridsize)
     grid=gridn
+    
+    MD.show(grid)
+    
+    #show(grid,screen)
 
-    show(grid,screen)
-
-pygame.quit()
+#pygame.quit()
+MD.quit()
