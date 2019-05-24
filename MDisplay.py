@@ -23,10 +23,14 @@ from numpy import int32
 
 
 
-def init(xdim,ydim,scscale=8,valmax=2000):
+def init(xDim,yDim,valmax=2000,scscale=8):
     global screen
     global scale
     global vmax
+    global xdim
+    global ydim
+    xdim=xDim
+    ydim=yDim
     vmax = valmax/6
     scale = scscale
     pygame.init()
@@ -36,9 +40,9 @@ def init(xdim,ydim,scscale=8,valmax=2000):
     
 def show (data) :    
     global screen
-    img= np.zeros((data.shape[0],data.shape[1],3))
-    for x in range(data.shape[0]):
-        for y in range(data.shape[1]):
+    img= np.zeros((xdim,ydim,3))
+    for x in range(xdim):
+        for y in range(ydim):
                 img[x,y,:]=convert(data[x,y])
    
     
@@ -85,6 +89,13 @@ def convert(temp):
 def quit():
     pygame.quit()
 
+
+
+def showlist(ls):
+    del ls[(xdim*ydim):]
+    y=np.asarray(ls).reshape(xdim,ydim)
+    show(y)
+    
 """
 
 if __name__ == '__main__':
