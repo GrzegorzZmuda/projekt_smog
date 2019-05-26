@@ -5,6 +5,8 @@ from chart import chart
 
 #mapa z wszystkimi kafelkami
 
+import MDisplay as MD
+import time
 
 
 class Map:
@@ -18,7 +20,13 @@ class Map:
         for i in range(x):
             for j in range(y):
                 self.array.append(prototyp1.Blok(i,j,random.randrange(1,10)/10))
+                
+        MD.init(x,y,valmax=1.5)
 
+    #dekonstruktor
+    def __del__(self):
+        MD.quit()
+    
     #wyświetlanie
     def disp(self):
         A=[]
@@ -28,11 +36,11 @@ class Map:
                 A.append(temp)
                 #print(format(temp, '02f'), end=' ')
 
-            print()
+            #print()
         self.mid.append(self.array[i * self.xrange + j].disp())
-        chart(A, self.xrange, self.yrange)
-
-
+        #chart(A, self.xrange, self.yrange)
+        MD.showlist(A)
+        time.sleep(0.2)
 
 
     #efekt wiatru
@@ -146,3 +154,4 @@ class Map:
 #symulacja
 a=Map(50,50)
 a.simulate()
+del a
