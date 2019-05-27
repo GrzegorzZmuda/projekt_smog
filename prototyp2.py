@@ -72,11 +72,11 @@ class Map:
 
             arrayplace=ycord*self.xrange+xcord
 
-            self.array[arrayplace].set(tmp[i][1]["value"]/30)
+            self.array[arrayplace].set(tmp[i][1]["value"]/20)
             for a in range(x):
                 for b in range(y):
                     if self.array[a*x+b].pollution==0:
-                        self.array[a*x+b].setchange((tmp[i][1]["value"]/30)/len(tmp))
+                        self.array[a*x+b].setchange((tmp[i][1]["value"]/20)/len(tmp))
 
 
 
@@ -188,7 +188,7 @@ class Map:
     #spreadscale - prędkość rozprowadzanie sie zanieczyszczeń
     #length- ilość cykli
     #starthour - godzina rozpoczecia
-    def simulate(self,spreadscale=0.01,length=72,):
+    def simulate(self,spreadscale=0.01,length=24):
         tmp=getwind.weathernow()
         self.windspeed=tmp[0]
         self.winddeg = tmp[1]
