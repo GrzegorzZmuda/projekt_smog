@@ -23,20 +23,30 @@ testId = '2935'
 def getSensorData(id):
     url="https://airapi.airly.eu/v2/measurements/installation?installationId="+id
     payload = {}
-    headers = {'Accept': 'application/json', 'apikey': 'ZLhRWleBgEUhYxRaqg2rYhoOf3TKo45z'}
+    headers = {'Accept': 'application/json', 'apikey': 'hB2NtswdoFGIXd7FUUJ4mx8BNCvOSwsr'}
 
     r = requests.get(url, data=json.dumps(payload), headers=headers)
-    
+
     if (r.status_code==200):#Sukcess?
-        print(r.json().get("current").get("values")) #wypisz aktualne dane
+        #print(r.json().get("current").get("values")[1]) #wypisz aktualne dane
+        if (len(r.json().get("current").get("values"))>1):
+            return(r.json().get("current").get("values")[1])
+
+        else:
+
+            x = '{ "name": "PM25", "value": 0}'
+            y = json.loads(x)
+
+            return(y)
     else:
         print("error")
+
 
 #Odbierz informacje o sensorze o okreslonym id
 def getSensorCord(id):   
     url="https://airapi.airly.eu/v2/installations/"+id
     payload = {}
-    headers = {'Accept': 'application/json', 'apikey': 'ZLhRWleBgEUhYxRaqg2rYhoOf3TKo45z'}
+    headers = {'Accept': 'application/json', 'apikey': 'hB2NtswdoFGIXd7FUUJ4mx8BNCvOSwsr'}
 
     r = requests.get(url, data=json.dumps(payload), headers=headers)
     
@@ -44,12 +54,29 @@ def getSensorCord(id):
         print(r.json().get("location")) #wypisz aktualne dane
     else:
         print("error")
+#NIE UŻYWAC CZĘSTO, dużo requestów (20-30) max distance 5km (46)
+#tworzy obiekt z informacją o lokacji czujnika i danymi o zanieczyszczeniu
+def getSensors():
+    url="https://airapi.airly.eu/v2/installations/nearest?lat=50.061389&lng=19.938333&maxDistanceKM=2&maxResults=20"
+    payload = {}
+    headers = {'Accept': 'application/json', 'apikey': 'hB2NtswdoFGIXd7FUUJ4mx8BNCvOSwsr'}
+
+    r = requests.get(url, data=json.dumps(payload), headers=headers)
+
+    if (r.status_code == 200):  # Sukcess?
+        a=[]
+        for i in range(len(r.json())):
+            tmp1=r.json()[i]["id"],r.json()[i]["location"]
+            tmp2=getSensorData(str(tmp1[0]))
+            tmp=tmp1,tmp2
+            a.append(tmp)
+
+        return a
+    else:
+        print("error")
     
-    
-    
-getSensorData(testId)
-print("")
-getSensorCord(testId)
+
+getSensors()
 """
 Możliwe zastosowania:
     -Lista pobliskich sensorów: /v2/installations/nearest 

@@ -12,9 +12,12 @@ class Blok:
     #ustawia zmiane wartości zanieczyszczenia
     def setchange(self,x):
         self.pollutionchange=self.pollutionchange+x
+
+    def set(self,x):
+        self.pollution=x
     #update kafelki
     def update(self):
         self.pollution+=self.pollutionchange
-        self.pollution=self.pollution*0.993
+        self.pollution=self.pollution*0.99
         self.pollutionchange=0
 
