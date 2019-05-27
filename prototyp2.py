@@ -81,6 +81,7 @@ class Map:
 
 
 
+
         for i in range(x):
             for j in range(y):
                 self.array[i + j * x].update()
