@@ -15,5 +15,6 @@ class Blok:
     #update kafelki
     def update(self):
         self.pollution+=self.pollutionchange
+        self.pollution=self.pollution*0.993
         self.pollutionchange=0
 
