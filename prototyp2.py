@@ -1,4 +1,6 @@
 import random
+
+import getwind
 import prototyp1
 import matplotlib.pyplot as plt
 from chart import chart
@@ -44,7 +46,7 @@ class Map:
 
 
     #efekt wiatru
-    def wind(self,speed,direction,scale=0.1):
+    def wind(self,scale=0.1):
 
 
 
@@ -52,7 +54,7 @@ class Map:
 
         for i in range(self.yrange):
             for j in range(self.xrange):
-                temp1=i*self.xrange+j
+                """temp1=i*self.xrange+j
 
                 x=self.array[temp1].disp()
                 temp2 = x * scale
@@ -69,9 +71,38 @@ class Map:
                 if (i + 1 < self.yrange and direction==4):
                     self.array[temp1 + self.xrange].setchange(temp2*speed*scale)
 
-                self.array[temp1].setchange(-temp2*speed*scale)
+                self.array[temp1].setchange(-temp2*speed*scale)"""
+                temp1 = i * self.xrange + j
+                x = self.array[temp1].disp()
+                temp2 = x * scale
 
-
+                if(0<=self.winddeg<90):
+                    if (i - 1 >-1):
+                        self.array[temp1 - self.xrange].setchange(temp2 * self.windspeed * scale*(self.winddeg/90))
+                    if (j + 1< self.xrange):
+                        self.array[temp1 + 1].setchange(temp2 * self.windspeed * scale*(1-(self.winddeg/90)))
+                    self.array[temp1].setchange(-(temp2 * self.windspeed * scale*(1-(self.winddeg/90)))-temp2 * self.windspeed * scale*(self.winddeg/90))
+                elif (90<= self.winddeg < 180):
+                    if (j + 1< self.xrange):
+                        self.array[temp1 + 1].setchange(temp2 * self.windspeed * scale*((self.winddeg-90)/90))
+                    if (i + 1< self.yrange):
+                        self.array[temp1 + self.xrange].setchange(temp2 * self.windspeed * scale*(1-(self.winddeg-90)/90))
+                    self.array[temp1].setchange(-(temp2 * self.windspeed * scale * (1 - ((self.winddeg-90)/ 90)))
+                                                - temp2 * self.windspeed * scale * ((self.winddeg-90)/ 90))
+                elif (180 <= self.winddeg < 270):
+                    if (i + 1< self.yrange):
+                        self.array[temp1 + self.xrange].setchange(temp2 * self.windspeed * scale*((self.winddeg-180)/90))
+                    if (j - 1 > -1):
+                        self.array[temp1 - 1].setchange(temp2 * self.windspeed * scale*(1-(self.winddeg-180)/90))
+                    self.array[temp1].setchange(-(temp2 * self.windspeed * scale * (1 - ((self.winddeg - 180) / 90)))
+                                                - temp2 * self.windspeed * scale * ((self.winddeg - 180) / 90))
+                else:
+                    if (j - 1 > -1):
+                        self.array[temp1 - 1].setchange(temp2 * self.windspeed * scale*((self.winddeg-270)/90))
+                    if (i - 1 > -1):
+                        self.array[temp1 - self.xrange].setchange(temp2 * self.windspeed * scale*(1-(self.winddeg-270)/90))
+                    self.array[temp1].setchange(-(temp2 * self.windspeed * scale * (1 - ((self.winddeg - 270) / 90)))
+                                                - temp2 * self.windspeed * scale * ((self.winddeg - 270) / 90))
 
 
     #symulacja rozprzestrzeniania się smogu(beZ wiatru)
@@ -108,7 +139,7 @@ class Map:
         self.spread(spreadscale)
         self.car()
         self.emmision()
-        self.wind(14,2)
+        self.wind()
         self.update()
         self.disp()
         print()
@@ -116,8 +147,12 @@ class Map:
     #spreadscale - prędkość rozprowadzanie sie zanieczyszczeń
     #length- ilość cykli
     #starthour - godzina rozpoczecia
-    def simulate(self,spreadscale=0.1,length=15,starthour=0):
+    def simulate(self,spreadscale=0.01,length=96,starthour=0):
+        tmp=getwind.weathernow()
+        self.windspeed=tmp[0]
+        self.winddeg = tmp[1]
         self.hour=starthour
+
         self.midyaxis=[]
         for i in range(length):
             self.midyaxis.append(i+1)
@@ -132,15 +167,15 @@ class Map:
 
 
     #bazowa emisja (mieszkania)
-    def emmision(self, amount=0.5):
-        if(18>self.hour>22):
+    def emmision(self, amount=0.6):
+        if(18>self.hour>24):
             for i in range(self.yrange):
                 for j in range(self.xrange):
                     self.array[i * self.xrange + j].setchange(amount)
 
 
     #bazowa emisja (samochody)
-    def car(self, amount=0.25):
+    def car(self, amount=0.03):
         if ((15 < self.hour < 18) or (6 < self.hour < 9)):
             for i in range(self.yrange):
                 for j in range(self.xrange):
