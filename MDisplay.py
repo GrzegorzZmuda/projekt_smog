@@ -93,7 +93,7 @@ def quit():
 
 def showlist(ls):
     del ls[(xdim*ydim):]
-    y=np.asarray(ls).reshape(xdim,ydim)
+    y=np.transpose(np.asarray(ls).reshape(xdim,ydim))
     show(y)
     
 """
