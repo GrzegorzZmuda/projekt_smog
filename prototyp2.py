@@ -105,6 +105,7 @@ class Map:
         #chart(A, self.xrange, self.yrange)
         MD.showlist(A)
         time.sleep(0.2)
+        return(A)
 
 
     #efekt wiatru
@@ -182,13 +183,14 @@ class Map:
         self.emmision()
         self.wind()
         self.update()
-        self.disp()
-        print()
+        tmp=self.disp()
+        return tmp
 
     #spreadscale - prędkość rozprowadzanie sie zanieczyszczeń
     #length- ilość cykli
     #starthour - godzina rozpoczecia
-    def simulate(self,spreadscale=0.01,length=24):
+    def simulate(self,spreadscale=0.01,length=25):
+        A=[]
         tmp=getwind.weathernow()
         self.windspeed=tmp[0]
         self.winddeg = tmp[1]
@@ -197,13 +199,14 @@ class Map:
         self.midyaxis=[]
         for i in range(length):
             self.midyaxis.append(i+1)
-            self.cycle(spreadscale)
+            A.append(self.cycle(spreadscale))
             self.hour+=1
             if(self.hour>24):
                 self.hour=0
 
         plt.plot(self.midyaxis,self.mid)
         plt.show()
+        return A
 
 
 
@@ -228,5 +231,6 @@ class Map:
 
 #symulacja
 a=Map(40,40)
-a.simulate()
+W=a.simulate()
+print(W) #zestaw stanów całej symulacji
 del a

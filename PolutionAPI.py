@@ -57,7 +57,7 @@ def getSensorCord(id):
 #NIE UŻYWAC CZĘSTO, dużo requestów (20-30) max distance 5km (46)
 #tworzy obiekt z informacją o lokacji czujnika i danymi o zanieczyszczeniu
 def getSensors():
-    url="https://airapi.airly.eu/v2/installations/nearest?lat=50.061389&lng=19.938333&maxDistanceKM=2&maxResults=20"
+    url="https://airapi.airly.eu/v2/installations/nearest?lat=50.061389&lng=19.938333&maxDistanceKM=3&maxResults=40"
     payload = {}
     headers = {'Accept': 'application/json', 'apikey': 'hB2NtswdoFGIXd7FUUJ4mx8BNCvOSwsr'}
 

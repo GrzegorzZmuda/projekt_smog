@@ -4,7 +4,7 @@ import json
 
 def weathernow():
     #Make a get request for Kraków weather.
-    response = requests.get("http://api.openweathermap.org/data/2.5/weather?q=Krakow&units=metric,pl&APPID=8fcc0c27bb02bace51a80ea5aae20fdd")
+    response = requests.get("http://api.openweathermap.org/data/2.5/weather?q=London&APPID=8fcc0c27bb02bace51a80ea5aae20fdd")
     #loadst content of response to object
     y = json.loads(response.content)
     if (len(y["wind"])<2):
@@ -16,5 +16,6 @@ def weathernow():
     ret=[]
     ret.append(spd)
     ret.append(deg)
+    print(deg)
     return(ret)
 weathernow()
