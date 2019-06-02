@@ -1,10 +1,10 @@
 import random
 
-import getwind
+import getwindchache
 import prototyp1
 import matplotlib.pyplot as plt
 
-from PolutionAPI import getSensors
+import PolutionAPIchache
 from chart import chart
 
 #mapa z wszystkimi kafelkami
@@ -26,7 +26,7 @@ class Map:
         for i in range(x):
             for j in range(y):
                 self.array.append(prototyp1.Blok(i,j))
-        tmp=getSensors()
+        tmp=PolutionAPIchache.airdata()
         maxlen = 0
         minlen = 360
         maxlat = 0
@@ -191,7 +191,7 @@ class Map:
     #starthour - godzina rozpoczecia
     def simulate(self,spreadscale=0.01,length=25):
         A=[]
-        tmp=getwind.weathernow()
+        tmp=getwindchache.winddata()
         self.windspeed=tmp[0]
         self.winddeg = tmp[1]
         now = datetime.datetime.now()
