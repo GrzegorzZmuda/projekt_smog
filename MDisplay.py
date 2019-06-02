@@ -96,6 +96,27 @@ def showlist(ls):
     y=np.transpose(np.asarray(ls).reshape(xdim,ydim))
     show(y)
     
+    
+def dispall(data): # wyswietl po klatkach
+    showlist(data[0])#wyswietl 1
+    i=0
+    while(1): #główna pętla
+        e = pygame.event.wait()        
+        if e.type == KEYDOWN and e.key == K_LEFT:
+            if (i<len(data)):
+                i=i+1
+        elif e.type == KEYDOWN and e.key == K_RIGHT:
+            if (i>0):
+                i=i-1
+        elif e.type == QUIT:
+            break;
+        showlist(data[i])#wyswietl 1
+    
+    
+    
+    
+    
+    
 """
 
 if __name__ == '__main__':
