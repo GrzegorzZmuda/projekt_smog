@@ -103,8 +103,8 @@ class Map:
             #print()
         self.mid.append(self.array[i * self.xrange + j].disp())
         #chart(A, self.xrange, self.yrange)
-        #MD.showlist(A)
-        #time.sleep(0.2)
+        MD.showlist(A)
+        time.sleep(0.2)
         return(A)
 
 
@@ -232,5 +232,5 @@ class Map:
 #symulacja
 a=Map(40,40)
 W=a.simulate()
-MD.dispall(W) #zestaw stanów całej symulacji
+print(W) #zestaw stanów całej symulacji
 del a
