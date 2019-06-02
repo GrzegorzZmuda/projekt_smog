@@ -16,6 +16,6 @@ def weathernow():
     ret=[]
     ret.append(spd)
     ret.append(deg)
-    print(deg)
+
     return(ret)
 weathernow()
