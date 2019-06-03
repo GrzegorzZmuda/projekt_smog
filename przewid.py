@@ -64,7 +64,7 @@ def znajdzwartosci(g,t,w,c,o,k,p,st=0):
     
     r=0
     for i in x:
-        r=r+i[1]*(i[0]/sumasd)
+        r=r+i[1]*((sumasd-i[0])/(sumasd*len(x)))
     
     return r
 
