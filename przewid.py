@@ -159,7 +159,7 @@ def main():
      
     ### Convert string to int type ##
     choice = int(choice)
-    start=ts=getSensorData(stacjeId[choice-1][0],stacjeId[choice-1][1])
+    start=getSensorData(stacjeId[choice-1][0],stacjeId[choice-1][1])
     zm=zmiany(choice-1)
     print("Teraz ",start)
     s=[]
