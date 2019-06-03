@@ -17,7 +17,7 @@ stacje = s.sheet_by_index(0)
 
 p = xlrd.open_workbook('dane/2017_PM10_1g.xls')
 pm10 = p.sheet_by_index(0)
-pc=pm10.ncols
+pc=pm10.ncols-1
 pr=pm10.nrows
 
 p2 = xlrd.open_workbook('dane/2017_PM25_1g.xls')
@@ -40,7 +40,7 @@ for i in range (8):
         
     
     plt.scatter(res[i][1],res[i][2],s=res[i][3]+10)
-    
+stacje=res
 
 #czytanie danych do listy [dane, czas]
 
