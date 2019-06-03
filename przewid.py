@@ -160,7 +160,7 @@ def main():
     ### Convert string to int type ##
     choice = int(choice)
     start=ts=getSensorData(stacjeId[choice-1][0],stacjeId[choice-1][1])
-    zm=zmiany(choice)
+    zm=zmiany(choice-1)
     print("Teraz ",start)
     s=[]
     j=[]
@@ -172,7 +172,7 @@ def main():
             
         print (z[0],start)
         
-    g = [i for i in range(0,70)]
+    g = [i for i in range(0,len(s))]
     plt.plot(g,s)
     plt.xlabel("ilosć godzin od teraz")
     plt.ylabel("szacowany poziom smogu")
