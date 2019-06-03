@@ -6,6 +6,8 @@ Created on Mon Jun  3 11:59:43 2019
 """
 
 import pickle,pogodateraz
+import requests
+import json
 
 
 with open ('dane/analiza/godz2017.txt', 'rb') as fp:
@@ -90,32 +92,88 @@ def col(temp):
     
     
     
-def znajdzteraz():
+def znajdzteraz(i):
     pog=pogteraz()
-    res=[[] for x in range(8)]
+    res=[]
     for q in pog:
-        #print(q)
-        #print (q[0],znajdzwartosci(q[0],q[1],q[2],q[3],q[4],q[5],q[6],0))
-        for i in range (len(stacje)):
-            res[i].append(znajdzwartosci(q[0],q[1],q[2],q[3],q[4],q[5],q[6],i))
-           # print(i, znajdzwartosci(q[0],q[1],q[2],q[3],q[4],q[5],q[6],i))
-           #print(color(znajdzwartosci(q[0],q[1],q[2],q[3],q[4],q[5],q[6],i)))
-           #plt.scatter(stacje[i][1],stacje[i][2],s=400,c="r",alpha=1.5*(znajdzwartosci(q[0],q[1],q[2],q[3],q[4],q[5],q[6],i)-10)/100)
-            
-        #plt.figure()
+        res.append([q[0],znajdzwartosci(q[0],q[1],q[2],q[3],q[4],q[5],q[6],i)])
+        #print(q[0],res[i])
     return res
 
-def zmiany(): #funkcja zwraca zmianę poziomu zanieczyszczeń co godzinę dla 8 stacji przez najbliższe 70 godzin
-    res=[[] for x in range(8)]
-    p=znajdzteraz()
+def zmiany(i): #funkcja zwraca zmianę poziomu zanieczyszczeń co godzinę dla 8 stacji przez najbliższe 70 godzin
+    res=[]
+    p=znajdzteraz(i)
     
-    for i in range(len(p)):
-        for j in range(len(p[i])-1):
-            res[i].append( p[i][j+1]-p[i][j] )
+    for i in range(1,len(p)):
+        res.append( [p[i][0], p[i][1]-p[i-1][1]] )
             
     return res
 
-poziomy=znajdzteraz()
-print (znajdzwartosci(23,-20,20,20,0,45,5,0))
-print (znajdzwartosci(23,30,20,20,0,45,5,0))
-zm=zmiany()
+
+#Odbierz dane z sensora o okreslonym id
+def getSensorData(id,n):
+    id=str(id)
+    url="https://airapi.airly.eu/v2/measurements/installation?installationId="+id
+    payload = {}
+    headers = {'Accept': 'application/json', 'apikey': 'DJoSUEFJJlO8HlofLCBynfBqDBcFgxKk'}
+
+    r = requests.get(url, data=json.dumps(payload), headers=headers)
+
+    if (r.status_code==200):#Sukcess?
+        #print(r.json().get("current").get("values")[1]) #wypisz aktualne dane
+        if (len(r.json().get("current").get("values"))>1):
+            #print(r.json().get("current"))
+            return (r.json().get("current").get("values")[n])['value']
+            
+        else:
+
+            x = '{ "name": "PM25", "value": 0}'
+            y = json.loads(x)
+
+            return(y)
+    else:
+        print("error")
+        
+        
+
+stacjeId=[[17,1],[18,1],[19,1],[7394,2],[238,2],[7830,2],[2545,2],[2185,2]]
+
+
+def main():
+    print (30 * '-')
+    print ("PM10 - stan na najbliższe 70 godzin")
+    print ("Wybierz stację pomiarową")
+    print (30 * '-')
+    print ("1. Aleja Krasińskiego")
+    print ("2. Bujaka")
+    print ("3. Bulwarowa")
+    print ("4. Dietla")
+    print ("5. Osiedle Piastów")
+    print ("6. Telimeny")
+    print ("7. Wadowicka")
+    print ("8. Złoty Róg")
+    print (30 * '-')
+     
+    ## Get input ###
+    choice = input('Wpisz numer [1-8] : ')
+     
+    ### Convert string to int type ##
+    choice = int(choice)
+    start=ts=getSensorData(stacjeId[choice-1][0],stacjeId[choice-1][1])
+    zm=zmiany(choice)
+    print("Teraz ",start)
+    s=[]
+    j=[]
+    for z in zm:
+        start=start+z[1]
+        if(start<0):
+            start=0
+        s.append(start)
+            
+        print (z[0],start)
+        
+    g = [i for i in range(0,70)]
+    plt.plot(g,s)
+    plt.xlabel("ilosć godzin od teraz")
+    plt.ylabel("szacowany poziom smogu")
+main()

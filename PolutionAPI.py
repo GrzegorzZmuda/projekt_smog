@@ -46,7 +46,7 @@ def getSensorData(id):
 def getSensorCord(id):   
     url="https://airapi.airly.eu/v2/installations/"+id
     payload = {}
-    headers = {'Accept': 'application/json', 'apikey': 'hB2NtswdoFGIXd7FUUJ4mx8BNCvOSwsr'}
+    headers = {'Accept': 'application/json', 'apikey': 'ZLhRWleBgEUhYxRaqg2rYhoOf3TKo45z'}
 
     r = requests.get(url, data=json.dumps(payload), headers=headers)
     
@@ -57,9 +57,9 @@ def getSensorCord(id):
 #NIE UŻYWAC CZĘSTO, dużo requestów (20-30) max distance 5km (46)
 #tworzy obiekt z informacją o lokacji czujnika i danymi o zanieczyszczeniu
 def getSensors():
-    url="https://airapi.airly.eu/v2/installations/nearest?lat=50.061389&lng=19.938333&maxDistanceKM=3&maxResults=40"
+    url="https://airapi.airly.eu/v2/installations/nearest?lat=50.05768&lng=19.92619&maxDistanceKM=3&maxResults=40"
     payload = {}
-    headers = {'Accept': 'application/json', 'apikey': 'hB2NtswdoFGIXd7FUUJ4mx8BNCvOSwsr'}
+    headers = {'Accept': 'application/json', 'apikey': 'ZLhRWleBgEUhYxRaqg2rYhoOf3TKo45z'}
 
     r = requests.get(url, data=json.dumps(payload), headers=headers)
 
@@ -76,7 +76,11 @@ def getSensors():
         print("error")
     
 
-getSensors()
+#x=getSensors()
+
+#print(x)
+#v=getSensorCord("17")  
+
 """
 Możliwe zastosowania:
     -Lista pobliskich sensorów: /v2/installations/nearest 
@@ -84,3 +88,4 @@ Możliwe zastosowania:
     -lista instalacji: /v2/installations/
     -adres,współrzędne gps itp istalacji: /v2/installations/ (id)
 """
+

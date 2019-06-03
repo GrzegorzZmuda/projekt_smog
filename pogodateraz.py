@@ -19,6 +19,7 @@ import requests
 from bs4 import BeautifulSoup
 import statistics
 
+
 def windangle(w):
     res=[]
     di=0
