@@ -60,6 +60,8 @@ def czytaj(id,pl):
                 d1 = datetime.datetime(*xlrd.xldate_as_tuple(a1, pl.datemode))
                 
                 res.append([float(q.replace(',', '.')),d1])
+            elif (plik.cell(1,j).value == id):
+                res.append("BRAK")
                 
             
     return res
@@ -71,3 +73,11 @@ pm25_2017=[]
 for i in range (8):
     pm10_2017.append(czytaj(res[i][0],p))
     pm25_2017.append(czytaj(res[i][0],p2))
+    
+p2017=[]
+plik = p.sheet_by_index(0)
+r=plik.nrows
+for i in range (r-6):
+    a1 = plik.cell_value(rowx=6+i, colx=0)
+    d1 = datetime.datetime(*xlrd.xldate_as_tuple(a1, p.datemode))
+    p2017.append(d1)
