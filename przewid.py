@@ -5,7 +5,7 @@ Created on Mon Jun  3 11:59:43 2019
 @author: pichi
 """
 
-import pickle
+import pickle,pogodateraz
 
 with open ('dane/analiza/godz2017.txt', 'rb') as fp:
     godz = pickle.load(fp)
@@ -34,6 +34,8 @@ def znajdzwart(lista,x,stacja=0): #wynik: odchylenie stand., srednia]
         if (l==x):
             i=j
             break
+        j=j+1
+    #print(x,i,lista[0][stacja][i], lista[1][stacja][i] )
     return lista[0][stacja][i], lista[1][stacja][i] 
 
     #[godzina,temperatura, wilgotnosc,zachmurzenie,deszcz(1=tak,0=nie),kierunek wiatru, prędkoć wiatru]
@@ -52,11 +54,23 @@ def znajdzwartosci(g,t,w,c,o,k,p,st=0):
     
     for i in x:
         sumasd=sumasd+i[0]
+
     
     r=0
     for i in x:
         r=r+i[1]*(i[0]/sumasd)
-        
+    
     return r
 
-print(znajdzwartosci(10,18,10,20,0,30,10,st=0))
+#print(znajdzwartosci(10,18,10,20,0,30,10,st=0))
+    
+def znajdzteraz():
+    pog=pogteraz()
+    
+    for q in pog:
+        #print(q)
+        print (q[0],znajdzwartosci(q[0],q[1],q[2],q[3],q[4],q[5],q[6],0))
+
+znajdzteraz()
+print (znajdzwartosci(23,-20,20,20,0,45,5,0))
+print (znajdzwartosci(23,30,20,20,0,45,5,0))
